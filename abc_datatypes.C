@@ -283,7 +283,6 @@ void add_array_props(OCompoundProperty &parent_prop,
     float64_vals.resize(size);
     float64_prop.set( DoubleArraySample( float64_vals ) );
 
-
     OStringArrayProperty string_prop(parent_prop, prefix + "_string", metadata);
     std::vector<string> string_vals = STRING_24;
     string_vals.resize(size);
@@ -505,6 +504,305 @@ void add_array_props(OCompoundProperty &parent_prop,
     return;
 }
 
+void add_array_arbgeom(OCompoundProperty &parent_prop,
+                       const std::string prefix,
+                       const bool indexed,
+                       const GeometryScope scope,
+                       const size_t array_size) {
+   
+    size_t data_size = 0;
+    switch (scope) {
+        case kConstantScope: data_size = 1; break;
+        case kUniformScope: data_size = NUM_FACES; break;
+        case kVaryingScope: data_size = NUM_VERTS; break;
+        case kVertexScope: data_size = NUM_VERTS; break;
+        case kFacevaryingScope: data_size = NUM_INDICES; break;
+        default: data_size = 0;
+    }
+
+    size_t size = data_size * array_size;
+
+    OBoolGeomParam bool_param(parent_prop, prefix + "_bool", indexed, scope, array_size);
+    std::vector<bool_t> bool_vals = BOOLS_24;
+    bool_vals.resize(size);
+    bool_param.getValueProperty().set( BoolArraySample( bool_vals ) );
+
+    OUcharGeomParam uchar_param(parent_prop, prefix + "_uchar", indexed, scope, array_size);
+    std::vector<uint8_t> uchar_vals = NUMERICS_24;
+    uchar_vals.resize(size);
+    uchar_param.getValueProperty().set( UcharArraySample( uchar_vals ) );
+
+    OCharGeomParam char_param(parent_prop, prefix + "_char", indexed, scope, array_size);
+    std::vector<int8_t> char_vals = NUMERICS_24;
+    char_vals.resize(size);
+    char_param.getValueProperty().set( CharArraySample( char_vals ) );
+
+    OUInt16GeomParam uint16_param(parent_prop, prefix + "_uint16", indexed, scope, array_size);
+    std::vector<uint16_t> uint16_vals = NUMERICS_24;
+    uint16_vals.resize(size);
+    uint16_param.getValueProperty().set( UInt16ArraySample( uint16_vals ) );
+
+    OInt16GeomParam int16_param(parent_prop, prefix + "_int16", indexed, scope, array_size);
+    std::vector<int16_t> int16_vals = NUMERICS_24;
+    int16_vals.resize(size);
+    int16_param.getValueProperty().set( Int16ArraySample( int16_vals ) );
+
+    OUInt32GeomParam uint32_param(parent_prop, prefix + "_uint32", indexed, scope, array_size);
+    std::vector<uint32_t> uint32_vals = NUMERICS_24;
+    uint32_vals.resize(size);
+    uint32_param.getValueProperty().set( UInt32ArraySample( uint32_vals ) );
+
+    OInt32GeomParam int32_param(parent_prop, prefix + "_int32", indexed, scope, array_size);
+    std::vector<int32_t> int32_vals = NUMERICS_24;
+    int32_vals.resize(size);
+    int32_param.getValueProperty().set( Int32ArraySample( int32_vals ) );
+
+    OUInt64GeomParam uint64_param(parent_prop, prefix + "_uint64", indexed, scope, array_size);
+    std::vector<uint64_t> uint64_vals = NUMERICS_24;
+    uint64_vals.resize(size);
+    uint64_param.getValueProperty().set( UInt64ArraySample( uint64_vals ) );
+
+    OInt64GeomParam int64_param(parent_prop, prefix + "_int64", indexed, scope, array_size);
+    std::vector<int64_t> int64_vals = NUMERICS_24;
+    int64_vals.resize(size);
+    int64_param.getValueProperty().set( Int64ArraySample( int64_vals ) );
+
+    OHalfGeomParam float16_param(parent_prop, prefix + "_float16", indexed, scope, array_size);
+    std::vector<float16_t> float16_vals = NUMERICS_24;
+    float16_vals.resize(size);
+    float16_param.getValueProperty().set( HalfArraySample( float16_vals ) );
+
+    OFloatGeomParam float32_param(parent_prop, prefix + "_float32", indexed, scope, array_size);
+    std::vector<float32_t> float32_vals = NUMERICS_24;
+    float32_vals.resize(size);
+    float32_param.getValueProperty().set( FloatArraySample( float32_vals ) );
+
+    ODoubleGeomParam float64_param(parent_prop, prefix + "_float64", indexed, scope, array_size);
+    std::vector<float64_t> float64_vals = NUMERICS_24;
+    float64_vals.resize(size);
+    float64_param.getValueProperty().set( DoubleArraySample( float64_vals ) );
+
+    OStringGeomParam string_param(parent_prop, prefix + "_string", indexed, scope, array_size);
+    std::vector<string> string_vals = STRING_24;
+    string_vals.resize(size);
+    string_param.getValueProperty().set( StringArraySample( string_vals ) );
+
+    OWstringGeomParam wstring_param(parent_prop, prefix + "_wstring", indexed, scope, array_size);
+    std::vector<Alembic::Util::wstring> wstring_vals;
+    wstring_vals.assign(size, L"wut");
+    wstring_param.getValueProperty().set( WstringArraySample( wstring_vals ) );
+
+    OV2sGeomParam v2s_param(parent_prop, prefix + "_v2s", indexed, scope, array_size);
+    std::vector<V2s> v2s_vals = NUMERICS2_24;
+    v2s_vals.resize(size);
+    v2s_param.getValueProperty().set( V2sArraySample( v2s_vals ) );
+
+    OV2iGeomParam v2i_param(parent_prop, prefix + "_v2i", indexed, scope, array_size);
+    std::vector<V2i> v2i_vals = NUMERICS2_24;
+    v2i_vals.resize(size);
+    v2i_param.getValueProperty().set( V2iArraySample( v2i_vals ) );
+
+    OV2fGeomParam v2f_param(parent_prop, prefix + "_v2f", indexed, scope, array_size);
+    std::vector<V2f> v2f_vals = NUMERICS2_24;
+    v2f_vals.resize(size);
+    v2f_param.getValueProperty().set( V2fArraySample( v2f_vals ) );
+
+    OV2dGeomParam v2d_param(parent_prop, prefix + "_v2d", indexed, scope, array_size);
+    std::vector<V2d> v2d_vals = NUMERICS2_24;
+    v2d_vals.resize(size);
+    v2d_param.getValueProperty().set( V2dArraySample( v2d_vals ) );
+    
+    OV3sGeomParam v3s_param(parent_prop, prefix + "_v3s", indexed, scope, array_size);
+    std::vector<V3s> v3s_vals = NUMERICS3_24;
+    v3s_vals.resize(size);
+    v3s_param.getValueProperty().set( V3sArraySample( v3s_vals ) );
+
+    OV3iGeomParam v3i_param(parent_prop, prefix + "_v3i", indexed, scope, array_size);
+    std::vector<V3i> v3i_vals = NUMERICS3_24;
+    v3i_vals.resize(size);
+    v3i_param.getValueProperty().set( V3iArraySample( v3i_vals ) );
+
+    OV3fGeomParam v3f_param(parent_prop, prefix + "_v3f", indexed, scope, array_size);
+    std::vector<V3f> v3f_vals = NUMERICS3_24;
+    v3f_vals.resize(size);
+    v3f_param.getValueProperty().set( V3fArraySample( v3f_vals ) );
+
+    OV3dGeomParam v3d_param(parent_prop, prefix + "_v3d", indexed, scope, array_size);
+    std::vector<V3d> v3d_vals = NUMERICS3_24;
+    v3d_vals.resize(size);
+    v3d_param.getValueProperty().set( V3dArraySample( v3d_vals ) );
+    
+    OP2sGeomParam p2s_param(parent_prop, prefix + "_p2s", indexed, scope, array_size);
+    std::vector<V2s> p2s_vals = NUMERICS2_24;
+    p2s_vals.resize(size);
+    p2s_param.getValueProperty().set( P2sArraySample( p2s_vals ) );
+
+    OP2iGeomParam p2i_param(parent_prop, prefix + "_p2i", indexed, scope, array_size);
+    std::vector<V2i> p2i_vals = NUMERICS2_24;
+    p2i_vals.resize(size);
+    p2i_param.getValueProperty().set( P2iArraySample( p2i_vals ) );
+
+    OP2fGeomParam p2f_param(parent_prop, prefix + "_p2f", indexed, scope, array_size);
+    std::vector<V2f> p2f_vals = NUMERICS2_24;
+    p2f_vals.resize(size);
+    p2f_param.getValueProperty().set( P2fArraySample( p2f_vals ) );
+
+    OP2dGeomParam p2d_param(parent_prop, prefix + "_p2d", indexed, scope, array_size);
+    std::vector<V2d> p2d_vals = NUMERICS2_24;
+    p2d_vals.resize(size);
+    p2d_param.getValueProperty().set( P2dArraySample( p2d_vals ) );
+    
+    OP3sGeomParam p3s_param(parent_prop, prefix + "_p3s", indexed, scope, array_size);
+    std::vector<V3s> p3s_vals = NUMERICS3_24;
+    p3s_vals.resize(size);
+    p3s_param.getValueProperty().set( P3sArraySample( p3s_vals ) );
+
+    OP3iGeomParam p3i_param(parent_prop, prefix + "_p3i", indexed, scope, array_size);
+    std::vector<V3i> p3i_vals = NUMERICS3_24;
+    p3i_vals.resize(size);
+    p3i_param.getValueProperty().set( P3iArraySample( p3i_vals ) );
+
+    OP3fGeomParam p3f_param(parent_prop, prefix + "_p3f", indexed, scope, array_size);
+    std::vector<V3f> p3f_vals = NUMERICS3_24;
+    p3f_vals.resize(size);
+    p3f_param.getValueProperty().set( P3fArraySample( p3f_vals ) );
+
+    OP3dGeomParam p3d_param(parent_prop, prefix + "_p3d", indexed, scope, array_size);
+    std::vector<V3d> p3d_vals = NUMERICS3_24;
+    p3d_vals.resize(size);
+    p3d_param.getValueProperty().set( P3dArraySample( p3d_vals ) );
+    
+    OBox2sGeomParam box2s_param(parent_prop, prefix + "_box2s", indexed, scope, array_size);
+    std::vector<Box2s> box2s_vals = BOX2_24;
+    box2s_vals.resize(size);
+    box2s_param.getValueProperty().set( Box2sArraySample( box2s_vals ) );
+
+    OBox2iGeomParam box2i_param(parent_prop, prefix + "_box2i", indexed, scope, array_size);
+    std::vector<Box2i> box2i_vals = BOX2_24;
+    box2i_vals.resize(size);
+    box2i_param.getValueProperty().set( Box2iArraySample( box2i_vals ) );
+
+    OBox2fGeomParam box2f_param(parent_prop, prefix + "_box2f", indexed, scope, array_size);
+    std::vector<Box2f> box2f_vals = BOX2_24;
+    box2f_vals.resize(size);
+    box2f_param.getValueProperty().set( Box2fArraySample( box2f_vals ) );
+
+    OBox2dGeomParam box2d_param(parent_prop, prefix + "_box2d", indexed, scope, array_size);
+    std::vector<Box2d> box2d_vals = BOX2_24;
+    box2d_vals.resize(size);
+    box2d_param.getValueProperty().set( Box2dArraySample( box2d_vals ) );
+    
+    OBox3sGeomParam box3s_param(parent_prop, prefix + "_box3s", indexed, scope, array_size);
+    std::vector<Box3s> box3s_vals = BOX3_24;
+    box3s_vals.resize(size);
+    box3s_param.getValueProperty().set( Box3sArraySample( box3s_vals ) );
+
+    OBox3iGeomParam box3i_param(parent_prop, prefix + "_box3i", indexed, scope, array_size);
+    std::vector<Box3i> box3i_vals = BOX3_24;
+    box3i_vals.resize(size);
+    box3i_param.getValueProperty().set( Box3iArraySample( box3i_vals ) );
+
+    OBox3fGeomParam box3f_param(parent_prop, prefix + "_box3f", indexed, scope, array_size);
+    std::vector<Box3f> box3f_vals = BOX3_24;
+    box3f_vals.resize(size);
+    box3f_param.getValueProperty().set( Box3fArraySample( box3f_vals ) );
+
+    OBox3dGeomParam box3d_param(parent_prop, prefix + "_box3d", indexed, scope, array_size);
+    std::vector<Box3d> box3d_vals = BOX3_24;
+    box3d_vals.resize(size);
+    box3d_param.getValueProperty().set( Box3dArraySample( box3d_vals ) );
+    
+    OM33fGeomParam m33f_param(parent_prop, prefix + "_m33f", indexed, scope, array_size);
+    std::vector<M33f> m33f_vals;
+    for (size_t i=0; i<size; ++i) {
+        m33f_vals.push_back(Alembic::Abc::M33f(i));
+    }
+    m33f_param.getValueProperty().set( M33fArraySample( m33f_vals ) );
+
+    OM33dGeomParam m33d_param(parent_prop, prefix + "_m33d", indexed, scope, array_size);
+    std::vector<M33d> m33d_vals;
+    for (size_t i=0; i<size; ++i) {
+        m33d_vals.push_back(Alembic::Abc::M33d(i));
+    }
+    m33d_param.getValueProperty().set( M33dArraySample( m33d_vals ) );
+    
+    OM44fGeomParam m44f_param(parent_prop, prefix + "_m44f", indexed, scope, array_size);
+    std::vector<M44f> m44f_vals;
+    for (size_t i=0; i<size; ++i) {
+        m44f_vals.push_back(Alembic::Abc::M44f(i));
+    }
+    m44f_param.getValueProperty().set( M44fArraySample( m44f_vals ) );
+
+    OM44dGeomParam m44d_param(parent_prop, prefix + "_m44d", indexed, scope, array_size);
+    std::vector<M44d> m44d_vals;
+    for (size_t i=0; i<size; ++i) {
+        m44d_vals.push_back(Alembic::Abc::M44d(i));
+    }
+    m44d_param.getValueProperty().set( M44dArraySample( m44d_vals ) );
+    
+    OC3hGeomParam c3h_param(parent_prop, prefix + "_c3h", indexed, scope, array_size);
+    std::vector<C3h> c3h_vals = NUMERICS3_24;
+    c3h_vals.resize(size);
+    c3h_param.getValueProperty().set( C3hArraySample( c3h_vals ) );
+    
+    OC3fGeomParam c3f_param(parent_prop, prefix + "_c3f", indexed, scope, array_size);
+    std::vector<C3f> c3f_vals = NUMERICS3_24;
+    c3f_vals.resize(size);
+    c3f_param.getValueProperty().set( C3fArraySample( c3f_vals ) );
+
+    OC3cGeomParam c3c_param(parent_prop, prefix + "_c3c", indexed, scope, array_size);
+    std::vector<C3c> c3c_vals = NUMERICS3_24;
+    c3c_vals.resize(size);
+    c3c_param.getValueProperty().set( C3cArraySample( c3c_vals ) );
+    
+    OC4hGeomParam c4h_param(parent_prop, prefix + "_c4h", indexed, scope, array_size);
+    std::vector<C4h> c4h_vals = NUMERICS4_24;
+    c4h_vals.resize(size);
+    c4h_param.getValueProperty().set( C4hArraySample( c4h_vals ) );
+    
+    OC4fGeomParam c4f_param(parent_prop, prefix + "_c4f", indexed, scope, array_size);
+    std::vector<C4f> c4f_vals = NUMERICS4_24;
+    c4f_vals.resize(size);
+    c4f_param.getValueProperty().set( C4fArraySample( c4f_vals ) );
+
+    OC4cGeomParam c4c_param(parent_prop, prefix + "_c4c", indexed, scope, array_size);
+    std::vector<C4c> c4c_vals = NUMERICS4_24;
+    c4c_vals.resize(size);
+    c4c_param.getValueProperty().set( C4cArraySample( c4c_vals ) );
+    
+    OQuatfGeomParam quatf_param(parent_prop, prefix + "_quatf", indexed, scope, array_size);
+    std::vector<Quatf> quatf_vals = NUMERICS4_24;
+    quatf_vals.resize(size);
+    quatf_param.getValueProperty().set( QuatfArraySample( quatf_vals ) );
+
+    OQuatdGeomParam quatd_param(parent_prop, prefix + "_quatd", indexed, scope, array_size);
+    std::vector<Quatd> quatd_vals = NUMERICS4_24;
+    quatd_vals.resize(size);
+    quatd_param.getValueProperty().set( QuatdArraySample( quatd_vals ) );
+    
+    ON2fGeomParam n2f_param(parent_prop, prefix + "_n2f", indexed, scope, array_size);
+    std::vector<V2f> n2f_vals = NUMERICS2_24;
+    n2f_vals.resize(size);
+    n2f_param.getValueProperty().set( N2fArraySample( n2f_vals ) );
+
+    ON2dGeomParam n2d_param(parent_prop, prefix + "_n2d", indexed, scope, array_size);
+    std::vector<V2d> n2d_vals = NUMERICS2_24;
+    n2d_vals.resize(size);
+    n2d_param.getValueProperty().set( N2dArraySample( n2d_vals ) );
+    
+    ON3fGeomParam n3f_param(parent_prop, prefix + "_n3f", indexed, scope, array_size);
+    std::vector<V3f> n3f_vals = NUMERICS3_24;
+    n3f_vals.resize(size);
+    n3f_param.getValueProperty().set( N3fArraySample( n3f_vals ) );
+
+    ON3dGeomParam n3d_param(parent_prop, prefix + "_n3d", indexed, scope, array_size);
+    std::vector<V3d> n3d_vals = NUMERICS3_24;
+    n3d_vals.resize(size);
+    n3d_param.getValueProperty().set( N3dArraySample( n3d_vals ) );
+    
+    return;
+}
+
 int main() {
     {
         Alembic::Abc::OArchive archive;
@@ -513,7 +811,12 @@ int main() {
             "abc_out", "shadeops");
         OXform test_xform(archive.getTop(), "test_obj");
         
+        Box3d bbox;
+        bbox.extendBy( V3d( -1.0, -1.0, -1.0 ) );
+        bbox.extendBy( V3d( 1.0, 1.0, 1.0 ) );
+
         OXformSchema &xform = test_xform.getSchema();
+        xform.getChildBoundsProperty().set(bbox);
         
         Alembic::Abc::M44d identity;
         identity.makeIdentity();
@@ -524,14 +827,15 @@ int main() {
     
         xform.set(samp);
 
-        OCompoundProperty xform_arbattrs = xform.getArbGeomParams();
-        add_props(xform_arbattrs, "con_arbattr");
+        OCompoundProperty xform_arbgeom = xform.getArbGeomParams();
+        add_props(xform_arbgeom, "arbgeom_con");
         
         OCompoundProperty xform_userprops = xform.getUserProperties();
         add_props(xform_userprops, "user");
 
         OPolyMesh test_mesh(test_xform, "test_mesh");
         OPolyMeshSchema &mesh = test_mesh.getSchema();
+        mesh.getChildBoundsProperty().set(bbox);
 
         std::vector<V3f> box_verts(BOX_VERTS);
         std::vector<int32_t> box_indices(BOX_INDICES);
@@ -548,43 +852,26 @@ int main() {
         
         mesh.set(mesh_samp);
 
-        Box3d bbox;
-        bbox.extendBy( V3d( -1.0, -1.0, -1.0 ) );
-        bbox.extendBy( V3d( 1.0, 1.0, 1.0 ) );
 
-        mesh.getChildBoundsProperty().set(bbox);
-
-        OCompoundProperty arbattrs = mesh.getArbGeomParams();
-        add_props(arbattrs, "con_arbattr");
-    
         OCompoundProperty userprops = mesh.getUserProperties();
+        OCompoundProperty arbgeom = mesh.getArbGeomParams();
         add_props(userprops, "user");
         
         MetaData metadata;
-        add_array_props(userprops, "array_user", 2, metadata);
+        add_array_props(userprops, "user_array", 2, metadata);
 
-        MetaData pt_metadata;
-        SetGeometryScope(pt_metadata, kVaryingScope);
-        add_array_props(arbattrs, "var_arbgeom", NUM_VERTS, pt_metadata);
-        
-        MetaData prim_metadata;
-        SetGeometryScope(prim_metadata, kUniformScope);
-        add_array_props(arbattrs, "uni_arbgeom", NUM_FACES, prim_metadata);
-        
-        MetaData vertex_metadata;
-        SetGeometryScope(vertex_metadata, kVertexScope);
-        add_array_props(arbattrs, "vtx_arbgeom", NUM_VERTS, vertex_metadata);
-        
-        MetaData facevarying_metadata;
-        SetGeometryScope(facevarying_metadata, kFacevaryingScope);
-        add_array_props(arbattrs, "fvr_arbgeom", NUM_INDICES, facevarying_metadata);
+        add_array_arbgeom(arbgeom, "arbgeom_array_con", false, kConstantScope, 2);
+        add_array_arbgeom(arbgeom, "arbgeom_con", false, kConstantScope, 1);
+        add_array_arbgeom(arbgeom, "arbgeom_uni", false, kUniformScope, 1);
+        add_array_arbgeom(arbgeom, "arbgeom_var", false, kVaryingScope, 1);
+        add_array_arbgeom(arbgeom, "arbgeom_vtx", false, kVertexScope, 1);
+        add_array_arbgeom(arbgeom, "arbgeom_fvr", false, kFacevaryingScope, 1);
 
         // Alternative way....
         // Alembic::AbcCoreAbstract::MetaData metadata;
         // SetSourceName(metadata, "stuff");
         // OFloatProperty float_metadata(userprops, "float_metadata", 0, metadata);
         // float_metadata.set(42.0);
-        
     }
     return 0;
 }

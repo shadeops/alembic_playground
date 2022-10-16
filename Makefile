@@ -1,4 +1,5 @@
 CXXFLAGS = -std=c++11
+LIBPATH = /opt
 
 abc_datatypes.abc: abc_datatypes
 	./abc_datatypes
@@ -6,11 +7,11 @@ abc_datatypes.abc: abc_datatypes
 abc_datatypes: abc_datatypes.C
 	g++ -O3 -o $@ abc_datatypes.C \
 	$(CXXFLAGS) \
-	-I/opt/alembic/alembic-1.7.12/include \
-	-I/opt/openexr/openexr-2.4.0/include/OpenEXR \
-	-L/opt/alembic/alembic-1.7.12/lib \
-	-L/opt/openexr/openexr-2.4.0/lib64 \
-	-lAlembic -lImath -lIex -lIlmThread -lHalf
+	-I$(LIBPATH)/alembic/include \
+	-I$(LIBPATH)/imath/include/Imath \
+	-L$(LIBPATH)/alembic/lib \
+	-lAlembic -lImath -lIex -lIlmThread -lHalf \
+	-Wl,-rpath=$(LIBPATH)/alembic/lib
 
 .phony: clean
 clean:
