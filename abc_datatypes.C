@@ -949,7 +949,6 @@ int main() {
 
         OPolyMesh test_mesh(test_xform, "test_mesh");
         OPolyMeshSchema &mesh = test_mesh.getSchema();
-        mesh.getChildBoundsProperty().set(bbox);
 
         std::vector<V3f> box_verts(BOX_VERTS);
         std::vector<int32_t> box_indices(BOX_INDICES);
